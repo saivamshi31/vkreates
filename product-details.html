@@ -196,6 +196,7 @@
                 <ul class="nav-list">
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li><a href="services.html" class="nav-link">All Services</a></li>
+                    <li><a href="Shop.html" class="nav-link">Shop</a></li>
                     <li><a href="index.html#contact" class="nav-link btn-chat">Chat</a></li>
                 </ul>
             </nav>
@@ -239,12 +240,22 @@
             const productId = urlParams.get('id');
             const container = document.getElementById('product-content');
 
-            if (!productId || !window.siteData || !window.siteData.demoWorks) {
+            if (!productId || !window.siteData) {
                 container.innerHTML = '<p>Product not found.</p>';
                 return;
             }
 
-            const product = window.siteData.demoWorks.find(p => p.id === productId);
+            const services = window.siteData.demoWorks || [];
+            const digital = window.siteData.digitalProducts || [];
+
+            // Try finding in both
+            let product = services.find(p => p.id === productId);
+            let isDigital = false;
+
+            if (!product) {
+                product = digital.find(p => p.id === productId);
+                if (product) isDigital = true;
+            }
 
             if (!product) {
                 container.innerHTML = '<p>Product not found.</p>';
@@ -259,14 +270,56 @@
                 product.image || product.thumbnail || 'placeholder'
             ];
 
+            // Helper to check for video
+            const isVideo = (url) => url.toLowerCase().match(/\.(mp4|webm|mov)$/i);
+            const isGif = (url) => url.toLowerCase().endsWith('.gif');
+
             // Generated Slides
-            const slidesHtml = images.map((img, index) => `
-                <div class="slide">
-                    ${img && img !== 'placeholder'
-                    ? `<img src="${img}" alt="${product.title} view ${index + 1}">`
-                    : '<div style="color: #666;">No Image</div>'}
-                </div>
-            `).join('');
+            const slidesHtml = images.map((img, index) => {
+                if (!img || img === 'placeholder') {
+                    return `<div class="slide"><div style="color: #666;">No Media</div></div>`;
+                }
+
+                if (isVideo(img)) {
+                    // Video: seamless loop, click to toggle
+                    return `
+                        <div class="slide">
+                            <video src="${img}" autoplay loop muteds playsinline 
+                                onclick="toggleVideo(this)" 
+                                ondblclick="toggleFullscreen(this)"
+                                style="width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer;"
+                                title="Click to Play/Pause, Double Click for Fullscreen">
+                            </video>
+                        </div>
+                    `;
+                }
+
+                // Image or GIF
+                return `
+                    <div class="slide">
+                        <img src="${img}" alt="${product.title} view ${index + 1}">
+                    </div>
+                `;
+            }).join('');
+
+            // Video Toggle Helper
+            window.toggleVideo = function (video) {
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            };
+
+            window.toggleFullscreen = function (video) {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) { /* Safari */
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) { /* IE11 */
+                    video.msRequestFullscreen();
+                }
+            };
 
             // Generated Indicators
             const indicatorsHtml = images.length > 1 ? `
@@ -295,9 +348,14 @@
                         <p>${product.longDesc || product.shortDesc}</p>
                     </div>
                     
-                    <a href="https://wa.me/919440090529?text=Hi, I am interested in *${encodeURIComponent(product.title)}*. Please provide more details." target="_blank" class="btn btn-whatsapp-full">
-                        <i class="fab fa-whatsapp"></i> Get It on WhatsApp
-                    </a>
+                    ${isDigital
+                    ? `<a href="${product.buyLink || '#'}" target="_blank" class="btn btn-primary" style="display: block; width: 100%; text-align: center; padding: 1rem; border-radius: 8px; font-weight: 600; text-decoration: none;">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                           </a>`
+                    : `<a href="https://wa.me/919440090529?text=Hi, I am interested in *${encodeURIComponent(product.title)}*. Please provide more details." target="_blank" class="btn btn-whatsapp-full">
+                            <i class="fab fa-whatsapp"></i> Get It on WhatsApp
+                           </a>`
+                }
                     ${product.previewLink ? `
                         <a href="${product.previewLink}" target="_blank" class="btn btn-primary-outline" style="margin-top: 1rem;">
                             <i class="fas fa-external-link-alt"></i> See HD Preview

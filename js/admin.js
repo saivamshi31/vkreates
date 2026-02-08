@@ -1,32 +1,89 @@
+// Admin Dashboard Logic
+// Supports 'services' and 'digital' modes set via window.adminMode
 
-// Main Admin Logic
-document.addEventListener('DOMContentLoaded', () => {
-    // Check if data loaded
-    if (!window.siteData || !window.siteData.demoWorks) {
-        alert('Error: js/data.js not loaded correctly.');
-        return;
-    }
-
-    renderTable();
-
-    // Form Submit Handler
-    document.getElementById('productForm').addEventListener('submit', handleFormSubmit);
-});
-
-// State
-let products = window.siteData.demoWorks;
+// Global State
+let currentData = []; // The array we are editing (demoWorks or digitalProducts)
+let otherData = [];   // The OTHER array we are NOT editing (to preserve it)
+let mode = '';        // 'services' or 'digital'
 let editingId = null;
 
 // DOM Elements
-const tableBody = document.getElementById('product-list-body');
-const modal = document.getElementById('productModal');
-const modalTitle = document.getElementById('modalTitle');
-const form = document.getElementById('productForm');
+let tableBody, modal, modalTitle, form;
+
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        // 1. Determine Mode
+        mode = window.adminMode || 'services'; // Default to services
+        console.log(`Admin Mode: ${mode}`);
+
+        // 2. Initialize DOM
+        tableBody = document.getElementById('product-list-body');
+        modal = document.getElementById('productModal');
+        modalTitle = document.getElementById('modalTitle');
+        form = document.getElementById('productForm');
+
+        // Update Page Title
+        const pageTitle = document.querySelector('.admin-header h1');
+        if (pageTitle) {
+            pageTitle.textContent = mode === 'services' ? 'Manage Services' : 'Manage Digital Products';
+        }
+
+        // 3. Load Data
+        if (!window.siteData) {
+            throw new Error('window.siteData not found. Ensure data.js is loaded.');
+        }
+
+        const allServices = window.siteData.demoWorks || [];
+        const allDigital = window.siteData.digitalProducts || [];
+
+        if (mode === 'services') {
+            currentData = allServices;
+            otherData = allDigital;
+        } else {
+            currentData = allDigital;
+            otherData = allServices;
+        }
+
+        // 4. Render
+        renderTable();
+
+        // 5. Setup Listeners
+        if (form) form.addEventListener('submit', handleFormSubmit);
+
+        // Close modal on outside click
+        window.onclick = function (event) {
+            if (event.target == modal) closeModal();
+        };
+
+    } catch (err) {
+        console.error(err);
+        alert('Admin Error: ' + err.message);
+    }
+});
 
 function renderTable() {
-    tableBody.innerHTML = products.map(p => `
+    if (!tableBody) return;
+
+    if (currentData.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No products found.</td></tr>';
+        return;
+    }
+
+    const isVideo = (url) => url && url.toLowerCase().match(/\.(mp4|webm|mov)$/i);
+
+    tableBody.innerHTML = currentData.map(p => {
+        const thumbUrl = p.thumbnail || 'https://via.placeholder.com/50';
+        let mediaHtml;
+
+        if (isVideo(thumbUrl)) {
+            mediaHtml = `<video src="${thumbUrl}" muted loop onmouseover="this.play()" onmouseout="this.pause()" class="product-thumbnail" style="object-fit:cover; background:#000;"></video>`;
+        } else {
+            mediaHtml = `<img src="${thumbUrl}" class="product-thumbnail" alt="">`;
+        }
+
+        return `
         <tr>
-            <td><img src="${p.thumbnail || 'https://via.placeholder.com/50'}" class="product-thumbnail" alt=""></td>
+            <td>${mediaHtml}</td>
             <td>${p.title}</td>
             <td>${p.category}</td>
             <td>${p.price}</td>
@@ -35,25 +92,30 @@ function renderTable() {
                 <button class="btn-danger" onclick="deleteProduct('${p.id}')"><i class="fas fa-trash"></i></button>
             </td>
         </tr>
-    `).join('');
+    `}).join('');
 }
 
 function openModal(isEdit = false) {
+    if (!modal) return;
     modal.style.display = 'block';
+
     if (!isEdit) {
-        // Clear form for add
         form.reset();
         editingId = null;
-        modalTitle.textContent = 'Add Product';
+        modalTitle.textContent = mode === 'services' ? 'Add Service' : 'Add Digital Product';
     }
 }
 
 function closeModal() {
-    modal.style.display = 'none';
+    if (modal) modal.style.display = 'none';
 }
 
-function editProduct(id) {
-    const product = products.find(p => p.id === id);
+// Make globally available for HTML onclick
+window.openModal = openModal;
+window.closeModal = closeModal;
+
+window.editProduct = function (id) {
+    const product = currentData.find(p => p.id === id);
     if (!product) return;
 
     editingId = id;
@@ -70,7 +132,12 @@ function editProduct(id) {
     document.getElementById('image').value = product.image;
     document.getElementById('previewLink').value = product.previewLink || '';
 
-    // Handle array of images
+    // Digital Specific
+    if (mode === 'digital') {
+        const buyLinkInput = document.getElementById('buyLink');
+        if (buyLinkInput) buyLinkInput.value = product.buyLink || '';
+    }
+
     if (product.images && product.images.length) {
         document.getElementById('additionalImages').value = product.images.join(', ');
     } else {
@@ -78,19 +145,18 @@ function editProduct(id) {
     }
 
     openModal(true);
-}
+};
 
-function deleteProduct(id) {
+window.deleteProduct = function (id) {
     if (confirm('Are you sure you want to delete this product?')) {
-        products = products.filter(p => p.id !== id);
+        currentData = currentData.filter(p => p.id !== id);
         renderTable();
     }
-}
+};
 
 function handleFormSubmit(e) {
     e.preventDefault();
 
-    // Gather data
     const title = document.getElementById('title').value;
     const category = document.getElementById('category').value;
     const price = document.getElementById('price').value;
@@ -99,58 +165,70 @@ function handleFormSubmit(e) {
     const thumbnail = document.getElementById('thumbnail').value;
     const image = document.getElementById('image').value;
     const previewLink = document.getElementById('previewLink').value;
-    const additionalImagesStr = document.getElementById('additionalImages').value;
 
+    // Digital Specific
+    let buyLink = '';
+    if (mode === 'digital') {
+        const buyLinkInput = document.getElementById('buyLink');
+        buyLink = buyLinkInput ? buyLinkInput.value : '';
+    }
+
+    const additionalImagesStr = document.getElementById('additionalImages').value;
     const images = additionalImagesStr
         ? additionalImagesStr.split(',').map(url => url.trim()).filter(url => url.length > 0)
         : [];
 
-    // Ensure main image is in images array if not present
-    if (image && !images.includes(image)) {
-        images.unshift(image);
+    if (image && !images.includes(image)) images.unshift(image);
+
+    const productData = {
+        title, category, price, shortDesc, longDesc, thumbnail, image, images, previewLink
+    };
+
+    if (mode === 'digital') {
+        productData.buyLink = buyLink || "https://razorpay.me/@vkreates"; // Default if missing
     }
 
     if (editingId) {
-        // Update existing
-        const index = products.findIndex(p => p.id === editingId);
+        const index = currentData.findIndex(p => p.id === editingId);
         if (index !== -1) {
-            products[index] = {
-                ...products[index],
-                title, category, price, shortDesc, longDesc, thumbnail, image, images, previewLink
-            };
+            // Merge to preserve ID and any other fields
+            currentData[index] = { ...currentData[index], ...productData };
         }
     } else {
-        // Add new
         const newId = title.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Date.now().toString().slice(-4);
-        const newProduct = {
-            id: newId,
-            title, category, price, shortDesc, longDesc, thumbnail, image, images, previewLink
-        };
-        products.push(newProduct);
+        productData.id = newId;
+        currentData.push(productData);
     }
 
     closeModal();
     renderTable();
 }
 
-/**
- * Generates the content for data.js and triggers download
- */
-function downloadDataJS() {
-    // Reconstruct the file content string
-    // logic matches the structure of existing data.js
+window.downloadDataJS = function () {
+    // Reconstruct data.js
+    // We need to appropriately assign currentData and otherData to their vars
 
-    const jsonContent = JSON.stringify(products, null, 4);
+    let demoWorksFinal, digitalProductsFinal;
 
-    // We assume data.js just has demoWorks. If there were testimonials, we'd need to fetch them too.
-    // For now, siteData.demoWorks is what we are editing.
+    if (mode === 'services') {
+        demoWorksFinal = currentData;
+        digitalProductsFinal = otherData;
+    } else {
+        demoWorksFinal = otherData;
+        digitalProductsFinal = currentData;
+    }
+
+    const demoWorksJSON = JSON.stringify(demoWorksFinal, null, 4);
+    const digitalProductsJSON = JSON.stringify(digitalProductsFinal, null, 4);
 
     const fileContent = `
-const demoWorks = ${jsonContent};
+const demoWorks = ${demoWorksJSON};
+
+const digitalProducts = ${digitalProductsJSON};
 
 // Verify if we are in the browser context to avoid errors in node environments during testing
 if (typeof window !== 'undefined') {
-    window.siteData = { demoWorks };
+    window.siteData = { demoWorks, digitalProducts };
 }
 `;
 
@@ -164,12 +242,5 @@ if (typeof window !== 'undefined') {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 
-    alert('data.js file created! Please replace your existing js/data.js file with this new one.');
-}
-
-// Window click to close modal
-window.onclick = function (event) {
-    if (event.target == modal) {
-        closeModal();
-    }
-}
+    alert('data.js downloaded! Please replace js/data.js.');
+};

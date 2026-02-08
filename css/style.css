@@ -731,14 +731,17 @@ img {
 /* All Services Grid Styles Merged Below */
 
 @media (min-width: 1024px) {
-    #all-services-container {
+
+    #all-services-container,
+    #shop-container {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 /* Specialized Layout for Editing & Designing Services and All Services */
 #editing-designing-container,
-#all-services-container {
+#all-services-container,
+#shop-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
@@ -748,7 +751,8 @@ img {
 
 /* Ensure cards don't overflow grid */
 #editing-designing-container .card,
-#all-services-container .card {
+#all-services-container .card,
+#shop-container .card {
     min-width: 0 !important;
     width: 100%;
     margin: 0;
@@ -763,13 +767,15 @@ img {
 
 /* Hide Description globally for these grids */
 #editing-designing-container .card-desc,
-#all-services-container .card-desc {
+#all-services-container .card-desc,
+#shop-container .card-desc {
     display: none !important;
 }
 
 /* Image adjustment to fill top */
 #editing-designing-container .product-img,
-#all-services-container .product-img {
+#all-services-container .product-img,
+#shop-container .product-img {
     aspect-ratio: 1/1;
     width: 100%;
     margin-bottom: 0.5rem;
@@ -781,13 +787,15 @@ img {
 }
 
 #editing-designing-container .product-details,
-#all-services-container .product-details {
+#all-services-container .product-details,
+#shop-container .product-details {
     padding: 0 !important;
     flex-grow: 0;
 }
 
 #editing-designing-container .product-title,
-#all-services-container .product-title {
+#all-services-container .product-title,
+#shop-container .product-title {
     font-size: 1rem !important;
     margin: 0.5rem 0 0.2rem 0;
     line-height: 1.3;
@@ -795,7 +803,8 @@ img {
 }
 
 #editing-designing-container .product-price,
-#all-services-container .product-price {
+#all-services-container .product-price,
+#shop-container .product-price {
     font-size: 1.1rem !important;
     margin: 0.2rem 0 0.5rem 0;
 }
