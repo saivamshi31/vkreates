@@ -46,27 +46,18 @@ const demoWorks = [
 const digitalProducts = [
     {
         "id": "lr-preset-moody",
-        "title": "Moody Dark Preset Pack",
-        "thumbnail": "https://via.placeholder.com/600x600?text=Moody+Preset",
-        "image": "https://via.placeholder.com/600x600?text=Moody+Preset",
-        "images": [],
-        "shortDesc": "5 Premium Lightroom Mobile Presets for dark and moody vibes.",
-        "longDesc": "Transform your photos with our curated Moody Dark preset pack. Includes 5 DNG files compatible with Lightroom Mobile.",
+        "title": "200+ Excel Templates",
+        "thumbnail": "images/dg01.png",
+        "image": "images/dg01.png",
+        "images": [
+            "images/dg01.png"
+        ],
+        "shortDesc": "",
+        "longDesc": "Boost your productivity and stay organized with this 200+ Excel Templates Mega Bundle, designed for business owners, freelancers, students, accountants, startups, and personal use.\nThis powerful collection helps you save time, track everything, and make smarter decisions—without complex software.",
         "price": "₹199",
         "category": "Presets",
-        "buyLink": "https://razorpay.me/@vkreates"
-    },
-    {
-        "id": "reels-template-bundle",
-        "title": "Viral Reels Template Bundle",
-        "thumbnail": "https://via.placeholder.com/600x600?text=Reels+Templates",
-        "image": "https://via.placeholder.com/600x600?text=Reels+Templates",
-        "images": [],
-        "shortDesc": "10 Trending Premiere Pro Templates for Instagram Reels.",
-        "longDesc": "Save time and go viral with these easy-to-use templates. Drag and drop your footage and you are ready to go.",
-        "price": "₹499",
-        "category": "Templates",
-        "buyLink": "https://razorpay.me/@vkreates"
+        "buyLink": "https://razorpay.me/@saimeenugu",
+        "previewLink": ""
     }
 ];
 
