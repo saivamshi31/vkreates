@@ -15,7 +15,7 @@
 
     /* Spacing */
     --container-padding: 1.5rem;
-    --section-spacing: 3rem;
+    --section-spacing: 1.5rem;
 
     /* Typography */
     --font-heading: 'Montserrat', sans-serif;
@@ -285,7 +285,7 @@ img {
 
 /* Services */
 .section-header {
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
     text-align: left;
     /* Mobile aligned */
 }
@@ -541,7 +541,7 @@ img {
 @media (min-width: 768px) {
     :root {
         --container-padding: 3rem;
-        --section-spacing: 5rem;
+        --section-spacing: 3rem;
     }
 
     .hero-title {
