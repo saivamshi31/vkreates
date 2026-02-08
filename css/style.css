@@ -785,15 +785,52 @@ img {
     grid-template-columns: repeat(2, 1fr);
     /* 2 Columns */
     gap: 0.5rem;
-    padding: 0 0.5rem;
-    /* Match services page */
+    padding: 0 0.25rem;
+    /* Very small edge padding */
 }
 
-/* Ensure cards don't overflow grid */
+/* Ensure cards don't overflow grid and fit 2 columns */
 #editing-designing-container .card,
 #all-services-container .card {
-    min-width: 0;
+    min-width: 0 !important;
+    /* Force no min-width */
     width: 100%;
+    margin: 0;
+}
+
+/* Mobile specific card adjustments for 2-column fit */
+@media (max-width: 768px) {
+
+    #editing-designing-container,
+    #all-services-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.4rem !important;
+    }
+
+    #editing-designing-container .card,
+    #all-services-container .card {
+        padding: 0.5rem !important;
+    }
+
+    /* Smaller fonts for mobile grid */
+    #editing-designing-container .product-title,
+    #all-services-container .product-title {
+        font-size: 0.85rem !important;
+        margin-bottom: 0.2rem;
+    }
+
+    #editing-designing-container .product-price,
+    #all-services-container .product-price {
+        font-size: 0.9rem !important;
+        margin-bottom: 0.5rem;
+    }
+
+    #editing-designing-container .btn,
+    #all-services-container .btn {
+        padding: 0.4rem 0.2rem !important;
+        font-size: 0.75rem !important;
+        min-height: auto;
+    }
 }
 
 /* Explore More Card */
