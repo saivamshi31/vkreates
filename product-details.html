@@ -152,6 +152,32 @@
         .btn-primary-outline:hover {
             background: rgba(108, 92, 231, 0.1);
         }
+
+        .btn-share {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            color: #333;
+            transition: 0.3s transform, 0.3s background;
+            font-size: 1.2rem;
+        }
+
+        .btn-share:hover {
+            transform: scale(1.1);
+            background: #fff;
+            color: var(--accent-color);
+        }
     </style>
 </head>
 
