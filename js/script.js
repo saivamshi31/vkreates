@@ -73,16 +73,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Data Rendering System
 
     // Render Functions
+    // Render Functions
     const renderServices = (category = 'all') => {
-        const container = document.getElementById('editing-designing-container');
-        if (!container || !window.siteData || !window.siteData.demoWorks) return;
+        // Check for Home Container (Featured)
+        const homeContainer = document.getElementById('editing-designing-container');
+        // Check for All Services Container
+        const allServicesContainer = document.getElementById('all-services-container');
+
+        if ((!homeContainer && !allServicesContainer) || !window.siteData || !window.siteData.demoWorks) return;
 
         const works = window.siteData.demoWorks;
-        const filteredWorks = category === 'all'
-            ? works
-            : works.filter(work => work.category === category);
 
-        container.innerHTML = filteredWorks.map(work => `
+        // Card Template Generator
+        const generateCard = (work) => `
             <div class="card product-card">
                 <div class="product-img placeholder">
                     ${work.thumbnail && work.thumbnail !== 'placeholder' ? `<img src="${work.thumbnail}" alt="${work.title}">` : 'Service Image'}
@@ -95,40 +98,56 @@ document.addEventListener('DOMContentLoaded', () => {
                     <a href="product-details.html?id=${work.id}" class="btn btn-sm btn-primary">Get Details</a>
                 </div>
             </div>
-        `).join('');
+        `;
 
-        // Re-run animations for new elements
-        setTimeout(() => {
-            const newElements = container.querySelectorAll('.card');
+        // Render for Home (Featured - Limit 3)
+        if (homeContainer) {
+            // Take first 3-4 items as featured
+            const featuredWorks = works.slice(0, 4);
+            homeContainer.innerHTML = featuredWorks.map(generateCard).join('');
+        }
+
+        // Render for All Services Page (With Filtering)
+        if (allServicesContainer) {
+            const filteredWorks = category === 'all'
+                ? works
+                : works.filter(work => work.category === category);
+
+            allServicesContainer.innerHTML = filteredWorks.map(generateCard).join('');
+
+            // Re-run animations for new elements on filters
+            const newElements = allServicesContainer.querySelectorAll('.card');
             newElements.forEach(el => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(20px)';
                 observer.observe(el);
             });
-        }, 50);
+        }
     };
 
-    // Filter Buttons Logic
+    // Filter Buttons Logic (Only runs if filters exist)
     const filterBtns = document.querySelectorAll('.filter-btn');
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Remove active class from all
-            filterBtns.forEach(b => {
-                b.classList.remove('active');
-                b.style.backgroundColor = 'var(--surface-color)';
-                b.style.color = 'var(--text-primary)';
+    if (filterBtns.length > 0) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all
+                filterBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.style.backgroundColor = 'var(--surface-color)';
+                    b.style.color = 'var(--text-primary)';
+                });
+                // Add active class to clicked
+                btn.classList.add('active');
+                btn.style.backgroundColor = 'var(--accent-color)';
+                btn.style.color = '#fff';
+
+                const filterValue = btn.getAttribute('data-filter');
+                renderServices(filterValue);
             });
-            // Add active class to clicked
-            btn.classList.add('active');
-            btn.style.backgroundColor = 'var(--accent-color)';
-            btn.style.color = '#fff';
-
-            const filterValue = btn.getAttribute('data-filter');
-            renderServices(filterValue);
         });
-    });
+    }
 
-    // Scroll Arrows Logic
+    // Scroll Arrows Logic (Only for Home)
     const scrollContainer = document.getElementById('editing-designing-container');
     const leftBtn = document.getElementById('scroll-left');
     const rightBtn = document.getElementById('scroll-right');

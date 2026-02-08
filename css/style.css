@@ -713,6 +713,72 @@ img {
     margin-top: 1rem;
 }
 
+/* Sticky Services Header */
+.sticky-services-header {
+    position: sticky;
+    top: 60px;
+    /* Below navbar */
+    z-index: 90;
+    background-color: var(--bg-color);
+    /* Match body bg */
+    padding: 1rem 0;
+    box-shadow: 0 5px 20px -10px rgba(0, 0, 0, 0.5);
+    /* Shadow when stuck */
+    margin: -1rem 0 1rem 0;
+    /* Negate container padding if needed */
+}
+
+/* All Services Page Grid */
+#all-services-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    /* Tighter gap for mobile */
+    padding: 0 0.5rem;
+    /* Edge padding */
+}
+
+/* Specific styles for services page cards to look good in 2 columns */
+#all-services-container .card {
+    padding: 0.8rem;
+}
+
+#all-services-container .product-img {
+    aspect-ratio: 1/1;
+    /* Square images for grid */
+    margin-bottom: 0.5rem;
+}
+
+#all-services-container .product-title {
+    font-size: 1rem;
+    white-space: normal;
+    /* Allow wrap */
+    line-height: 1.3;
+}
+
+#all-services-container .card-desc {
+    display: none;
+    /* Hide desc on mobile grid to save space */
+}
+
+#all-services-container .btn {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+    #all-services-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    #all-services-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 /* Specialized Layout for Editing & Designing Services */
 #editing-designing-container {
     display: grid;

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Services | V'Kreates</title>
+    <meta name="description"
+        content="Explore our full range of image and video editing services. From birthday wishes to professional retouching, we do it all.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .page-header {
+            padding-top: 120px;
+            padding-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* Grid for full services page */
+        #all-services-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            #all-services-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            #all-services-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">V'Kre<span>ates</span>.</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html#editing-designing" class="nav-link">Featured</a></li>
+                    <li><a href="services.html" class="nav-link active">All Services</a></li>
+                    <li><a href="index.html#contact" class="nav-link btn-chat">Chat</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section" style="padding-top: 0;">
+            <div class="container" style="padding-top: 100px;">
+                <div class="sticky-services-header">
+                    <div class="page-header" style="padding-top: 1rem; padding-bottom: 1rem;">
+                        <h1 class="section-title" style="font-size: 1.5rem;">All Services</h1>
+                    </div>
+
+                    <!-- Filter Buttons -->
+                    <div class="filter-container"
+                        style="display: flex; gap: 0.5rem; justify-content: center; overflow-x: auto; padding-bottom: 0.5rem; padding-left: 0.5rem; padding-right: 0.5rem; scrollbar-width: none; -webkit-overflow-scrolling: touch;">
+                        <button class="filter-btn active" data-filter="all"
+                            style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.4rem 1rem; border-radius: 50px; cursor: pointer; transition: 0.3s; white-space: nowrap; font-size: 0.9rem;">All</button>
+                        <button class="filter-btn" data-filter="Image Editing"
+                            style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.4rem 1rem; border-radius: 50px; cursor: pointer; transition: 0.3s; white-space: nowrap; font-size: 0.9rem;">Image
+                            Editing</button>
+                        <button class="filter-btn" data-filter="Video Editing"
+                            style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.4rem 1rem; border-radius: 50px; cursor: pointer; transition: 0.3s; white-space: nowrap; font-size: 0.9rem;">Video
+                            Editing</button>
+                        <button class="filter-btn" data-filter="Graphic Design"
+                            style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.4rem 1rem; border-radius: 50px; cursor: pointer; transition: 0.3s; white-space: nowrap; font-size: 0.9rem;">Graphic
+                            Design</button>
+                    </div>
+                </div>
+
+                <!-- All Services Grid -->
+                <div id="all-services-container">
+                    <!-- Services loaded via JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html">
+                        <h3>V'Kreates</h3>
+                    </a>
+                    <p>Premium digital editing & creative services.</p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://instagram.com/v.kreates" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/919440090529" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 V'Kreates. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Social Buttons -->
+    <div class="floating-social">
+        <a href="https://instagram.com/v.kreates" target="_blank" class="float-btn instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://wa.me/919440090529?text=Hi%20V'Kreates!" target="_blank" class="float-btn whatsapp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
