@@ -35,9 +35,7 @@
             </div>
             <nav class="nav-menu">
                 <ul class="nav-list">
-                    <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-                    <li><a href="#products" class="nav-link">Shop</a></li>
+                    <li><a href="#editing-designing" class="nav-link">Services</a></li>
                     <li><a href="#contact" class="nav-link btn-chat">Chat</a></li>
                 </ul>
             </nav>
@@ -54,76 +52,45 @@
             <div class="hero-buttons">
                 <a href="https://wa.me/919440090529?text=Hi%20V'Kreates,%20I'm%20interested%20in%20your%20services"
                     class="btn btn-primary"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
-                <a href="#portfolio" class="btn btn-secondary">View Portfolio</a>
+                <a href="#editing-designing" class="btn btn-secondary">View Services</a>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="section services">
+    <!-- Editing & Designing Services Section -->
+    <section id="editing-designing" class="section products">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Our Services</h2>
-                <p class="section-subtitle">What we craft for you</p>
+                <h2 class="section-title">Editing & Designing Services</h2>
+                <p class="section-subtitle">Explore our creative premium collection</p>
             </div>
 
-            <div class="cards-grid" id="services-container">
-                <!-- Services will be loaded here via JS -->
+            <!-- Filter Buttons -->
+            <div class="filter-container"
+                style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap;">
+                <button class="filter-btn active" data-filter="all"
+                    style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.5rem 1.5rem; border-radius: 50px; cursor: pointer; transition: 0.3s;">All</button>
+                <button class="filter-btn" data-filter="Image Editing"
+                    style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.5rem 1.5rem; border-radius: 50px; cursor: pointer; transition: 0.3s;">Image
+                    Editing</button>
+                <button class="filter-btn" data-filter="Video Editing"
+                    style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.5rem 1.5rem; border-radius: 50px; cursor: pointer; transition: 0.3s;">Video
+                    Editing</button>
+                <button class="filter-btn" data-filter="Graphic Design"
+                    style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.5rem 1.5rem; border-radius: 50px; cursor: pointer; transition: 0.3s;">Graphic
+                    Design</button>
             </div>
 
-        </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="section portfolio">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Selected Works</h2>
-                <p class="section-subtitle">Our creative output</p>
-            </div>
-
-            <div class="horizontal-scroll-container">
-                <!-- Portfolio Item 1 (Image) -->
-                <div class="portfolio-item">
-                    <div class="portfolio-media placeholder">Image Before/After</div>
-                    <div class="portfolio-info">
-                        <h4>Product Retouching</h4>
-                        <span>Image Editing</span>
-                    </div>
+            <div class="scroll-wrapper" style="position: relative;">
+                <button id="scroll-left" class="scroll-arrow" style="left: 0;"><i
+                        class="fas fa-chevron-left"></i></button>
+                <div class="cards-grid" id="editing-designing-container">
+                    <!-- Services will be loaded here via JS -->
                 </div>
-
-                <!-- Portfolio Item 2 (Video) -->
-                <div class="portfolio-item">
-                    <div class="portfolio-media placeholder">Video Thumbnail</div>
-                    <div class="portfolio-info">
-                        <h4>Travel Reel</h4>
-                        <span>Video Editing</span>
-                    </div>
-                </div>
-
-                <!-- Portfolio Item 3 (Image) -->
-                <div class="portfolio-item">
-                    <div class="portfolio-media placeholder">Fashion Edit</div>
-                    <div class="portfolio-info">
-                        <h4>Fashion Editorial</h4>
-                        <span>High-end Polish</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Digital Products Section -->
-    <section id="products" class="section products">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Digital Store</h2>
-                <p class="section-subtitle">Premium assets for creators</p>
+                <button id="scroll-right" class="scroll-arrow" style="right: 0;"><i
+                        class="fas fa-chevron-right"></i></button>
             </div>
 
-            <div class="cards-grid" id="products-container">
-                <!-- Products will be loaded here via JS -->
-            </div>
 
         </div>
     </section>

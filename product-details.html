@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Details | V'Kreates</title>
+    <meta name="description" content="View details of our premium creative works.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .details-container {
+            padding-top: 120px;
+            min-height: 80vh;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .details-image {
+            width: 100%;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            background-color: var(--surface-color);
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .details-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .details-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .details-title {
+            font-size: 2.5rem;
+            line-height: 1.1;
+        }
+
+        .details-price {
+            font-size: 2rem;
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .details-desc {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .btn-whatsapp-full {
+            background-color: #25D366;
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            border-radius: var(--btn-radius);
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: var(--transition-fast);
+        }
+
+        .btn-whatsapp-full:hover {
+            background-color: #1ebc57;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        @media (min-width: 768px) {
+            .details-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">V'Kre<span>ates</span>.</a>
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html#editing-designing" class="nav-link"><i class="fas fa-arrow-left"></i> Back
+                            to Services</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container details-container">
+        <div class="details-grid" id="details-content">
+            <!-- Content loaded via JS -->
+            <div class="details-image placeholder">
+                <div class="spinner"><i class="fas fa-spinner fa-spin fa-3x"></i></div>
+            </div>
+            <div class="details-info">
+                <div class="placeholder-text"
+                    style="height: 40px; background: #222; border-radius: 4px; margin-bottom: 1rem;"></div>
+                <div class="placeholder-text" style="height: 20px; background: #222; border-radius: 4px; width: 50%;">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 V'Kreates. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const workId = params.get('id');
+            const container = document.getElementById('details-content');
+
+            if (!workId || !window.siteData || !window.siteData.demoWorks) {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center;">
+                        <h2>Product not found</h2>
+                        <a href="index.html" class="btn btn-primary" style="margin-top: 1rem;">Go Home</a>
+                    </div>
+                `;
+                return;
+            }
+
+            const work = window.siteData.demoWorks.find(w => w.id === workId);
+
+            if (!work) {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center;">
+                        <h2>Product not found</h2>
+                        <a href="index.html" class="btn btn-primary" style="margin-top: 1rem;">Go Home</a>
+                    </div>
+                `;
+                return;
+            }
+
+            // Update Page Title
+            document.title = `${work.title} | V'Kreates`;
+
+            // Render Content
+            container.innerHTML = `
+                <div class="details-image">
+                    <img src="${work.image ? work.image : work.thumbnail}" alt="${work.title}" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x600?text=${encodeURIComponent(work.title)}'">
+                </div>
+                <div class="details-info">
+                    <span style="color: var(--accent-color); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">${work.category || 'Creative Work'}</span>
+                    <h1 class="details-title">${work.title}</h1>
+                    <div class="details-price">${work.price}</div>
+                    <p class="details-desc">${work.longDesc || work.shortDesc}</p>
+                    
+                    <a href="https://wa.me/919440090529?text=Hi%20V'Kreates,%20I%20want%20to%20get%20'${encodeURIComponent(work.title)}'%20for%20${encodeURIComponent(work.price)}" 
+                       class="btn-whatsapp-full" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Get It on WhatsApp
+                    </a>
+                </div>
+            `;
+        });
+    </script>
+</body>
+
+</html>
