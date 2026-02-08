@@ -728,50 +728,7 @@ img {
     /* Negate container padding if needed */
 }
 
-/* All Services Page Grid */
-#all-services-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-    /* Tighter gap for mobile */
-    padding: 0 0.5rem;
-    /* Edge padding */
-}
-
-/* Specific styles for services page cards to look good in 2 columns */
-#all-services-container .card {
-    padding: 0.8rem;
-}
-
-#all-services-container .product-img {
-    aspect-ratio: 1/1;
-    /* Square images for grid */
-    margin-bottom: 0.5rem;
-}
-
-#all-services-container .product-title {
-    font-size: 1rem;
-    white-space: normal;
-    /* Allow wrap */
-    line-height: 1.3;
-}
-
-#all-services-container .card-desc {
-    display: none;
-    /* Hide desc on mobile grid to save space */
-}
-
-#all-services-container .btn {
-    width: 100%;
-    padding: 0.5rem;
-    font-size: 0.9rem;
-}
-
-@media (min-width: 768px) {
-    #all-services-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+/* All Services Grid Styles Merged Below */
 
 @media (min-width: 1024px) {
     #all-services-container {
@@ -779,57 +736,97 @@ img {
     }
 }
 
-/* Specialized Layout for Editing & Designing Services (Home 2x2 Grid) */
-#editing-designing-container {
+/* Specialized Layout for Editing & Designing Services and All Services */
+#editing-designing-container,
+#all-services-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /* 2 Columns */
-    gap: 0.5rem;
-    padding: 0 0.25rem;
-    /* Very small edge padding */
+    gap: 1.5rem;
+    /* Match features-grid gap */
+    padding: 0;
 }
 
-/* Ensure cards don't overflow grid and fit 2 columns */
+/* Ensure cards don't overflow grid */
 #editing-designing-container .card,
 #all-services-container .card {
     min-width: 0 !important;
-    /* Force no min-width */
     width: 100%;
     margin: 0;
+    height: 380px;
+    /* Approx double feature item */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem !important;
+    /* Standard padding */
 }
 
-/* Mobile specific card adjustments for 2-column fit */
+/* Hide Description globally for these grids */
+#editing-designing-container .card-desc,
+#all-services-container .card-desc {
+    display: none !important;
+}
+
+/* Image adjustment to fill top */
+#editing-designing-container .product-img,
+#all-services-container .product-img {
+    aspect-ratio: 1/1;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    flex-grow: 1;
+    /* Let image take available space */
+    max-height: 220px;
+    /* Limit image height */
+    object-fit: cover;
+}
+
+#editing-designing-container .product-details,
+#all-services-container .product-details {
+    padding: 0 !important;
+    flex-grow: 0;
+}
+
+#editing-designing-container .product-title,
+#all-services-container .product-title {
+    font-size: 1rem !important;
+    margin: 0.5rem 0 0.2rem 0;
+    line-height: 1.3;
+    white-space: normal;
+}
+
+#editing-designing-container .product-price,
+#all-services-container .product-price {
+    font-size: 1.1rem !important;
+    margin: 0.2rem 0 0.5rem 0;
+}
+
+/* Mobile specific adjustments to maintain 2 cols with larger gap */
 @media (max-width: 768px) {
 
     #editing-designing-container,
     #all-services-container {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 0.4rem !important;
+        gap: 0.8rem !important;
+        /* Slightly tighter than desktop 1.5rem to fit mobile 2-col better */
+        padding: 0 0.5rem;
     }
 
     #editing-designing-container .card,
     #all-services-container .card {
-        padding: 0.5rem !important;
+        height: 320px;
+        /* Slightly smaller for mobile but still tall */
+        padding: 0.8rem !important;
     }
+}
 
-    /* Smaller fonts for mobile grid */
-    #editing-designing-container .product-title,
-    #all-services-container .product-title {
-        font-size: 0.85rem !important;
-        margin-bottom: 0.2rem;
-    }
+/* Desktop match features grid */
+@media (min-width: 768px) {
 
-    #editing-designing-container .product-price,
-    #all-services-container .product-price {
-        font-size: 0.9rem !important;
-        margin-bottom: 0.5rem;
-    }
-
-    #editing-designing-container .btn,
-    #all-services-container .btn {
-        padding: 0.4rem 0.2rem !important;
-        font-size: 0.75rem !important;
-        min-height: auto;
+    #editing-designing-container,
+    #all-services-container {
+        grid-template-columns: repeat(4, 1fr) !important;
+        /* Match features grid 4 cols */
+        gap: 1.5rem !important;
     }
 }
 
