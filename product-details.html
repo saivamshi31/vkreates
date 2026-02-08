@@ -128,7 +128,6 @@
             border-radius: var(--btn-radius);
             font-weight: 600;
             font-size: 1.2rem;
-            margin-top: 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -140,6 +139,50 @@
             background-color: #1ebc57;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-preview-full {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            border-radius: var(--btn-radius);
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: var(--transition-fast);
+        }
+
+        .btn-preview-full:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Custom Header Nav for Details Page */
+        .details-nav {
+            display: block !important;
+            /* Force visible */
+        }
+
+        .details-nav .nav-list {
+            display: flex;
+            flex-direction: row;
+            /* Always row */
+            gap: 1.5rem;
+            padding: 0;
         }
 
         @media (min-width: 768px) {
@@ -156,7 +199,7 @@
     <header class="header">
         <div class="container header-container">
             <a href="index.html" class="logo">V'Kre<span>ates</span>.</a>
-            <nav class="nav-menu">
+            <nav class="details-nav">
                 <ul class="nav-list">
                     <li><a href="index.html#editing-designing" class="nav-link"><i class="fas fa-arrow-left"></i> Back
                             to Services</a></li>
@@ -171,11 +214,6 @@
             <div class="gallery-container">
                 <div class="main-image-container placeholder">
                     <div class="spinner"><i class="fas fa-spinner fa-spin fa-3x"></i></div>
-                </div>
-                <div class="thumbnails-strip">
-                    <div class="thumbnail placeholder"></div>
-                    <div class="thumbnail placeholder"></div>
-                    <div class="thumbnail placeholder"></div>
                 </div>
             </div>
             <div class="details-info">
@@ -246,10 +284,18 @@
                 `).join('');
 
                 // Generate Indicators HTML
+                // Only show if more than 1 image
                 const indicatorsHtml = images.length > 1 ? `
                     <div class="slider-indicators">
                         ${images.map((_, index) => `<div class="indicator ${index === 0 ? 'active' : ''}" data-index="${index}"></div>`).join('')}
                     </div>
+                ` : '';
+
+                // Generate Preview Button HTML
+                const previewBtn = product.previewLink ? `
+                    <a href="${product.previewLink}" target="_blank" class="btn-preview-full">
+                        <i class="fas fa-eye"></i> See HD Preview
+                    </a>
                 ` : '';
 
                 // Render Full Content
@@ -269,9 +315,12 @@
                             <p>${product.longDesc || product.shortDesc}</p>
                         </div>
                         
-                        <a href="https://wa.me/919440090529?text=Hi, I am interested in *${encodeURIComponent(product.title)}*. Please provide more details." target="_blank" class="btn btn-whatsapp-full">
-                            <i class="fab fa-whatsapp"></i> Get It on WhatsApp
-                        </a>
+                        <div class="action-buttons">
+                            <a href="https://wa.me/919440090529?text=Hi, I am interested in *${encodeURIComponent(product.title)}*. Please provide more details." target="_blank" class="btn-whatsapp-full">
+                                <i class="fab fa-whatsapp"></i> Get It on WhatsApp
+                            </a>
+                            ${previewBtn}
+                        </div>
                     </div>
                 `;
 
@@ -280,19 +329,21 @@
                     const slider = document.getElementById('image-slider');
                     const indicators = document.querySelectorAll('.indicator');
 
-                    slider.addEventListener('scroll', () => {
-                        const scrollPosition = slider.scrollLeft;
-                        const width = slider.offsetWidth;
-                        const activeIndex = Math.round(scrollPosition / width);
+                    if (slider && indicators.length > 0) {
+                        slider.addEventListener('scroll', () => {
+                            const scrollPosition = slider.scrollLeft;
+                            const width = slider.offsetWidth;
+                            const activeIndex = Math.round(scrollPosition / width);
 
-                        indicators.forEach((dot, index) => {
-                            if (index === activeIndex) {
-                                dot.classList.add('active');
-                            } else {
-                                dot.classList.remove('active');
-                            }
+                            indicators.forEach((dot, index) => {
+                                if (index === activeIndex) {
+                                    dot.classList.add('active');
+                                } else {
+                                    dot.classList.remove('active');
+                                }
+                            });
                         });
-                    });
+                    }
                 }
             }
 

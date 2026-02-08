@@ -14,7 +14,8 @@ const demoWorks = [
         "shortDesc": "Beautifully designed birthday wish for social media.",
         "longDesc": "make your loved ones feel special with a custom designed birthday wish post. Perfect for Instagram, Facebook, and WhatsApp status. Includes photo retouching and custom text.",
         "price": "₹299",
-        "category": "Graphic Design"
+        "category": "Graphic Design",
+        "previewLink": "https://instagram.com/vkreates"
     },
     {
         "id": "anniversary-wish-post",
@@ -29,7 +30,8 @@ const demoWorks = [
         "shortDesc": "Celebrate your milestone with a stunning anniversary post.",
         "longDesc": "A romantic and elegant design to celebrate your anniversary. customized with your couple photos and a heartfelt message.",
         "price": "₹399",
-        "category": "Graphic Design"
+        "category": "Graphic Design",
+        "previewLink": "https://instagram.com/vkreates"
     },
     {
         "id": "wedding-invitation-video",
@@ -45,7 +47,8 @@ const demoWorks = [
         "shortDesc": "Animated wedding invitation to share on WhatsApp.",
         "longDesc": "A premium animated video invitation for your big day. Includes music, animations, and details of your wedding events.",
         "price": "₹999",
-        "category": "Video Editing"
+        "category": "Video Editing",
+        "previewLink": "https://drive.google.com/"
     },
     {
         "id": "business-poster",
@@ -60,7 +63,8 @@ const demoWorks = [
         "shortDesc": "Professional poster for your business promotion.",
         "longDesc": "High-quality poster design for your marketing campaigns. Great for social media ads and print.",
         "price": "₹499",
-        "category": "Graphic Design"
+        "category": "Graphic Design",
+        "previewLink": "https://instagram.com/vkreates"
     },
     {
         "id": "photo-retouching",
@@ -75,7 +79,8 @@ const demoWorks = [
         "shortDesc": "High-end skin retouching and color correction.",
         "longDesc": "Professional photo retouching services including skin smoothing, blemish removal, color grading, and lighting enhancements. Perfect for portraits and fashion shoots.",
         "price": "₹199",
-        "category": "Image Editing"
+        "category": "Image Editing",
+        "previewLink": "https://drive.google.com/"
     },
     {
         "id": "background-removal",
@@ -90,7 +95,8 @@ const demoWorks = [
         "shortDesc": "Clean and precise background removal for products.",
         "longDesc": "Expert background removal service. We deliver transparent backgrounds or replace them with a setting of your choice. Ideal for e-commerce products.",
         "price": "₹99",
-        "category": "Image Editing"
+        "category": "Image Editing",
+        "previewLink": "https://drive.google.com/"
     },
     {
         "id": "reels-editing",
@@ -106,7 +112,8 @@ const demoWorks = [
         "shortDesc": "Fast-paced, engaging editing for Instagram Reels.",
         "longDesc": "Boost your engagement with professionally edited Reels. We add captions, transitions, effects, and trending music to make your content go viral.",
         "price": "₹499",
-        "category": "Video Editing"
+        "category": "Video Editing",
+        "previewLink": "https://instagram.com/vkreates"
     }
 ];
 
