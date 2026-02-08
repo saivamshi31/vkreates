@@ -779,94 +779,64 @@ img {
     }
 }
 
-/* Specialized Layout for Editing & Designing Services */
+/* Specialized Layout for Editing & Designing Services (Home 2x2 Grid) */
 #editing-designing-container {
     display: grid;
-    grid-template-columns: none;
-    /* Override defaults */
-    grid-template-rows: repeat(2, min-content);
-    grid-auto-flow: column;
-    grid-auto-columns: 60%;
-    /* Even narrower for mobile to fit more */
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 Columns */
     gap: 0.5rem;
-    /* Tighter gap */
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 0.5rem;
-    margin-right: -1.5rem;
-    /* Allow scroll to edge */
-    padding-right: 1.5rem;
-    scrollbar-width: none;
-    /* Hide scrollbar Firefox */
+    padding: 0 0.5rem;
+    /* Match services page */
 }
 
-#editing-designing-container::-webkit-scrollbar {
-    display: none;
-    /* Hide scrollbar Chrome/Safari */
+/* Ensure cards don't overflow grid */
+#editing-designing-container .card,
+#all-services-container .card {
+    min-width: 0;
+    width: 100%;
 }
 
-#editing-designing-container .card {
-    scroll-snap-align: start;
-    padding: 0.6rem;
-    /* Very compact padding */
+/* Explore More Card */
+.explore-card {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent !important;
+    border: 1px dashed var(--accent-color) !important;
+    color: var(--accent-color);
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
     height: 100%;
-    margin-bottom: 0px;
+    min-height: 200px;
+    /* Match approx height of other cards */
 }
 
-#editing-designing-container .product-img {
-    aspect-ratio: 2.2/1;
-    /* Very short image */
-    margin-bottom: 0.4rem;
-    border-radius: 8px;
-    /* Slightly smaller radius for small cards */
+.explore-card:hover {
+    background-color: rgba(108, 92, 231, 0.1) !important;
+    transform: translateY(-5px);
 }
 
-#editing-designing-container .product-title {
-    font-size: 0.9rem;
-    /* Smaller title */
-    margin-bottom: 0.1rem;
-    line-height: 1.2;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.explore-card i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
 }
 
-#editing-designing-container .card-desc {
-    font-size: 0.75rem;
-    /* Smaller desc */
-    margin-bottom: 0.2rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    /* Only 1 line */
-    line-clamp: 1;
-    /* Standard property */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    line-height: 1.2;
-}
-
-#editing-designing-container .product-price {
-    font-size: 0.9rem;
-    margin: 0 0 0.3rem 0;
+.explore-card span {
     font-weight: 600;
+    font-size: 1rem;
 }
 
-#editing-designing-container .btn-sm {
-    padding: 0.3rem 0.6rem;
-    font-size: 0.8rem;
-    width: 100%;
-    /* Full width button looks better on small cards */
-}
-
-/* Desktop Adjustment - make columns narrower to fit more */
+/* Desktop Styles */
 @media (min-width: 768px) {
-    #editing-designing-container {
-        grid-auto-columns: 300px;
-        /* Fixed width cards on desktop */
-        margin-right: 0;
-        padding-right: 0;
+
+    #editing-designing-container,
+    #all-services-container {
+        grid-template-columns: repeat(4, 1fr) !important;
+        /* 4 cols on desktop */
+        gap: 1.5rem;
+        padding: 0;
     }
 }
 

@@ -100,11 +100,21 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        // Render for Home (Featured - Limit 3)
+        // Render for Home (Featured - Limit 3 + Explore Card)
         if (homeContainer) {
-            // Take first 3-4 items as featured
-            const featuredWorks = works.slice(0, 4);
-            homeContainer.innerHTML = featuredWorks.map(generateCard).join('');
+            // Take first 3 items
+            const featuredWorks = works.slice(0, 3);
+            const productCards = featuredWorks.map(generateCard).join('');
+
+            // Explore More Card
+            const exploreCard = `
+                <a href="services.html" class="card explore-card">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>Explore All Services</span>
+                </a>
+            `;
+
+            homeContainer.innerHTML = productCards + exploreCard;
         }
 
         // Render for All Services Page (With Filtering)
@@ -147,20 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Scroll Arrows Logic (Only for Home)
-    const scrollContainer = document.getElementById('editing-designing-container');
-    const leftBtn = document.getElementById('scroll-left');
-    const rightBtn = document.getElementById('scroll-right');
-
-    if (scrollContainer && leftBtn && rightBtn) {
-        leftBtn.addEventListener('click', () => {
-            scrollContainer.scrollBy({ left: -320, behavior: 'smooth' });
-        });
-
-        rightBtn.addEventListener('click', () => {
-            scrollContainer.scrollBy({ left: 320, behavior: 'smooth' });
-        });
-    }
+    // Scroll Arrows Logic Removed (No longer needed for grid)
 
     // Initial Render
     renderServices();
