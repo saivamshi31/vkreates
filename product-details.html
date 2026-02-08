@@ -278,6 +278,9 @@
             // Render Content
             container.innerHTML = `
                 <div class="gallery-container">
+                    <button class="btn-share" id="share-btn" title="Share Product">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
                     <div class="slider-wrapper" id="image-slider">
                         ${slidesHtml}
                     </div>
@@ -306,6 +309,38 @@
                     </a>
                 </div>
             `;
+
+            // Share functionality
+            const shareBtn = document.getElementById('share-btn');
+            if (shareBtn) {
+                shareBtn.addEventListener('click', async () => {
+                    const shareData = {
+                        title: product.title,
+                        text: `Check out ${product.title} on V'Kreates!`,
+                        url: window.location.href
+                    };
+
+                    if (navigator.share) {
+                        try {
+                            await navigator.share(shareData);
+                        } catch (err) {
+                            console.log('Error sharing:', err);
+                        }
+                    } else {
+                        // Fallback
+                        navigator.clipboard.writeText(window.location.href);
+
+                        // Change icon temporarily to indicate copy
+                        const originalIcon = shareBtn.innerHTML;
+                        shareBtn.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(() => {
+                            shareBtn.innerHTML = originalIcon;
+                        }, 2000);
+
+                        alert('Link copied to clipboard!');
+                    }
+                });
+            }
 
             // Slider Functionality
             if (images.length > 1) {
