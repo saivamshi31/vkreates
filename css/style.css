@@ -862,6 +862,21 @@ img {
     font-size: 1rem;
 }
 
+/* Button Spacing Fix for Mobile Grid */
+@media (max-width: 768px) {
+
+    #editing-designing-container .btn,
+    #all-services-container .btn {
+        padding: 0.6rem 1rem !important;
+        font-size: 0.8rem !important;
+        min-height: auto;
+        margin-top: auto;
+        margin-bottom: 0.2rem;
+        border-radius: 50px;
+        width: 100%;
+    }
+}
+
 /* Desktop Styles */
 @media (min-width: 768px) {
 
@@ -907,5 +922,17 @@ img {
     .scroll-arrow {
         display: none;
         /* Hide on mobile where swipe is natural */
+    }
+
+    /* Button Spacing Fix for Mobile Grid */
+    #editing-designing-container .btn,
+    #all-services-container .btn {
+        padding: 0.6rem 1rem !important;
+        font-size: 0.8rem !important;
+        min-height: auto;
+        margin-top: auto;
+        margin-bottom: 0.2rem;
+        border-radius: 50px;
+        width: 100%;
     }
 }
