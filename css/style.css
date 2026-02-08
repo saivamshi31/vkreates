@@ -15,7 +15,7 @@
 
     /* Spacing */
     --container-padding: 1.5rem;
-    --section-spacing: 5rem;
+    --section-spacing: 3rem;
 
     /* Typography */
     --font-heading: 'Montserrat', sans-serif;
@@ -239,12 +239,13 @@ img {
 
 /* Hero Section */
 .hero {
-    min-height: 85vh;
+    min-height: 70vh;
     /* Mobile optimized height */
     display: flex;
     align-items: center;
     padding-top: 80px;
     /* Header offset */
+    padding-bottom: 2rem;
 }
 
 .hero-content {
@@ -486,7 +487,7 @@ img {
 /* Footer */
 .footer {
     background-color: #050505;
-    padding: 3rem 0;
+    padding: 2rem 0;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -540,6 +541,7 @@ img {
 @media (min-width: 768px) {
     :root {
         --container-padding: 3rem;
+        --section-spacing: 5rem;
     }
 
     .hero-title {
