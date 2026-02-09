@@ -19,9 +19,11 @@ const demoWorks = [
         "id": "business-poster",
         "title": "Top 10 Creator Graphic elements",
         "thumbnail": "images/upload.webm",
-        "image": "images/upload.webm",
+        "image": "images/ge1.webm",
         "images": [
-            "images/upload.webm"
+            "images/ge1.webm",
+            "images/g2.webm",
+            "images/ge3.webm"
         ],
         "shortDesc": "Top 10 Creator Graphic elements which are helpful to Creators",
         "longDesc": "High-quality graphic elements for your videos. Great for social media videos.",
