@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, observerOptions);
 
     // Elements to animate
-    const animatedElements = document.querySelectorAll('.card, .section-title, .hero-content > *, .portfolio-item');
+    const animatedElements = document.querySelectorAll('.card, .section-title, .hero-content > *, .portfolio-item, .service-card, .work-item, .feature-item, .cta-box, .highlight-content');
     animatedElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
