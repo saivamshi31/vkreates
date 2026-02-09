@@ -109,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${mediaHtml}
                 </div>
                 <div class="product-details">
-                    <span style="font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;">${work.category || 'Creative'}</span>
                     <h3 class="product-title" style="margin-top: 0.5rem;">${work.title}</h3>
                     <p class="card-desc" style="margin-bottom: 0.5rem;">${work.shortDesc}</p>
                     <p class="product-price">${work.price}</p>
