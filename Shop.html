@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Services | V'Kreates</title>
+    <title>Digital Shop | V'Kreates</title>
     <meta name="description"
-        content="Explore our full range of image and video editing services. From birthday wishes to professional retouching, we do it all.">
+        content="Buy premium digital products for creators. Lightroom Presets, Video LUTs, Graphic Templates, and more.">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,21 +27,21 @@
             text-align: center;
         }
 
-        /* Grid for full services page */
-        #all-services-container {
+        /* Grid for Shop page */
+        #shop-container {
             display: grid;
             grid-template-columns: 1fr;
             gap: 2rem;
         }
 
         @media (min-width: 768px) {
-            #all-services-container {
+            #shop-container {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (min-width: 1024px) {
-            #all-services-container {
+            #shop-container {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
@@ -61,9 +61,9 @@
             </div>
             <nav class="nav-menu">
                 <ul class="nav-list">
-                    <li><a href="index.html#editing-designing" class="nav-link">Featured</a></li>
-                    <li><a href="services.html" class="nav-link active">All Services</a></li>
-                    <li><a href="Shop.html" class="nav-link">Shop</a></li>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="services.html" class="nav-link">Services</a></li>
+                    <li><a href="Shop.html" class="nav-link active">Shop</a></li>
                     <li><a href="index.html#contact" class="nav-link btn-chat">Chat</a></li>
                 </ul>
             </nav>
@@ -75,29 +75,25 @@
             <div class="container" style="padding-top: 100px;">
                 <div class="sticky-services-header">
                     <div class="page-header" style="padding-top: 1rem; padding-bottom: 1rem;">
-                        <h1 class="section-title" style="font-size: 1.5rem;">Editing & Designing</h1>
+                        <h1 class="section-title" style="font-size: 1.5rem;">Digital Shop</h1>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Premium assets for creators</p>
                     </div>
 
-                    <!-- Filter Buttons -->
+                    <!-- Filter Buttons (Optional/Simplified for V1) -->
                     <div class="filter-container"
-                        style="display: flex; gap: 0.5rem; justify-content: center; overflow-x: auto; padding-bottom: 0.5rem; padding-left: 0.5rem; padding-right: 0.5rem; scrollbar-width: none; -webkit-overflow-scrolling: touch;">
+                        style="display: flex; gap: 0.5rem; justify-content: center; overflow-x: auto; padding-bottom: 0.5rem; scrollbar-width: none; -webkit-overflow-scrolling: touch;">
                         <button class="filter-btn active" data-filter="all"
                             style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.4rem 1rem; border-radius: 50px; cursor: pointer; transition: 0.3s; white-space: nowrap; font-size: 0.9rem;">All</button>
-                        <button class="filter-btn" data-filter="Image Editing"
-                            style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.4rem 1rem; border-radius: 50px; cursor: pointer; transition: 0.3s; white-space: nowrap; font-size: 0.9rem;">Image
-                            Editing</button>
-                        <button class="filter-btn" data-filter="Video Editing"
-                            style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.4rem 1rem; border-radius: 50px; cursor: pointer; transition: 0.3s; white-space: nowrap; font-size: 0.9rem;">Video
-                            Editing</button>
-                        <button class="filter-btn" data-filter="Graphic Design"
-                            style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.4rem 1rem; border-radius: 50px; cursor: pointer; transition: 0.3s; white-space: nowrap; font-size: 0.9rem;">Graphic
-                            Design</button>
+                        <button class="filter-btn" data-filter="Presets"
+                            style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.4rem 1rem; border-radius: 50px; cursor: pointer; transition: 0.3s; white-space: nowrap; font-size: 0.9rem;">Presets</button>
+                        <button class="filter-btn" data-filter="Templates"
+                            style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.4rem 1rem; border-radius: 50px; cursor: pointer; transition: 0.3s; white-space: nowrap; font-size: 0.9rem;">Templates</button>
                     </div>
                 </div>
 
-                <!-- All Services Grid -->
-                <div id="all-services-container">
-                    <!-- Services loaded via JS -->
+                <!-- Shop Grid -->
+                <div id="shop-container">
+                    <!-- Products loaded via JS -->
                 </div>
             </div>
         </section>

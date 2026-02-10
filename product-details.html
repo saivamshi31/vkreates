@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Details | V'Kreates</title>
-    <meta name="description" content="View details of our premium creative works.">
+    <title>Product Details | V'Kreates</title>
+    <meta name="description" content="Product Details">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,57 +20,60 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .details-container {
+        .product-details-container {
             padding-top: 120px;
-            min-height: 80vh;
-        }
-
-        .details-grid {
+            padding-bottom: 5rem;
             display: grid;
             grid-template-columns: 1fr;
             gap: 3rem;
         }
 
-        /* Slider Gallery Styles */
+        @media (min-width: 768px) {
+            .product-details-container {
+                grid-template-columns: 1fr 1fr;
+                align-items: start;
+            }
+        }
+
         .gallery-container {
             position: relative;
             width: 100%;
-            background-color: var(--surface-color);
             border-radius: var(--card-radius);
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: var(--surface-color);
+            aspect-ratio: 1/1;
         }
 
         .slider-wrapper {
             display: flex;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
+            width: 100%;
+            height: 100%;
             scrollbar-width: none;
             /* Firefox */
         }
 
         .slider-wrapper::-webkit-scrollbar {
             display: none;
-            /* Chrome/Safari */
+            /* Safari and Chrome */
         }
 
         .slide {
             flex: 0 0 100%;
             width: 100%;
-            aspect-ratio: 1/1;
-            /* Square for consistency */
+            height: 100%;
             scroll-snap-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
         }
 
         .slide img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            /* or cover depending on preference */
         }
 
         .slider-indicators {
@@ -80,115 +83,100 @@
             transform: translateX(-50%);
             display: flex;
             gap: 0.5rem;
-            z-index: 10;
         }
 
         .indicator {
             width: 8px;
             height: 8px;
-            background-color: rgba(255, 255, 255, 0.5);
             border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
             transition: 0.3s;
         }
 
         .indicator.active {
-            background-color: var(--accent-color);
-            transform: scale(1.2);
+            background: var(--accent-color);
+            width: 20px;
+            border-radius: 10px;
         }
 
-        .details-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .details-title {
-            font-size: 2.5rem;
-            line-height: 1.1;
+        .details-info h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
         }
 
         .details-price {
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: var(--accent-color);
             font-weight: 700;
+            margin-bottom: 1.5rem;
         }
 
         .details-desc {
             color: var(--text-secondary);
-            font-size: 1.1rem;
             line-height: 1.6;
+            margin-bottom: 2rem;
         }
 
         .btn-whatsapp-full {
             background-color: #25D366;
             color: white;
+            display: block;
             width: 100%;
             text-align: center;
             padding: 1rem;
-            border-radius: var(--btn-radius);
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            transition: var(--transition-fast);
+            text-decoration: none;
+            transition: 0.3s;
         }
 
         .btn-whatsapp-full:hover {
-            background-color: #1ebc57;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            background-color: #20bd5a;
         }
 
-        .btn-preview-full {
-            background-color: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
+        .btn-primary-outline {
+            display: block;
             width: 100%;
             text-align: center;
             padding: 1rem;
-            border-radius: var(--btn-radius);
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 1.1rem;
+            text-decoration: none;
+            transition: 0.3s;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            background: transparent;
+        }
+
+        .btn-primary-outline:hover {
+            background: rgba(108, 92, 231, 0.1);
+        }
+
+        .btn-share {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            transition: var(--transition-fast);
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            color: #333;
+            transition: 0.3s transform, 0.3s background;
+            font-size: 1.2rem;
         }
 
-        .btn-preview-full:hover {
-            border-color: var(--accent-color);
+        .btn-share:hover {
+            transform: scale(1.1);
+            background: #fff;
             color: var(--accent-color);
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        .action-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        /* Custom Header Nav for Details Page */
-        .details-nav {
-            display: block !important;
-            /* Force visible */
-        }
-
-        .details-nav .nav-list {
-            display: flex;
-            flex-direction: row;
-            /* Always row */
-            gap: 1.5rem;
-            padding: 0;
-        }
-
-        @media (min-width: 768px) {
-            .details-grid {
-                grid-template-columns: 1fr 1fr;
-            }
         }
     </style>
 </head>
@@ -199,35 +187,45 @@
     <header class="header">
         <div class="container header-container">
             <a href="index.html" class="logo">V'Kre<span>ates</span>.</a>
-            <nav class="details-nav">
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <nav class="nav-menu">
                 <ul class="nav-list">
-                    <li><a href="index.html#editing-designing" class="nav-link"><i class="fas fa-arrow-left"></i> Back
-                            to Services</a></li>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="services.html" class="nav-link">All Services</a></li>
+                    <li><a href="Shop.html" class="nav-link">Shop</a></li>
+                    <li><a href="index.html#contact" class="nav-link btn-chat">Chat</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main class="container details-container">
-        <div class="details-grid" id="details-content">
+    <main>
+        <div class="container product-details-container" id="product-content">
             <!-- Content loaded via JS -->
-            <div class="gallery-container">
-                <div class="main-image-container placeholder">
-                    <div class="spinner"><i class="fas fa-spinner fa-spin fa-3x"></i></div>
-                </div>
-            </div>
-            <div class="details-info">
-                <div class="placeholder-text"
-                    style="height: 40px; background: #222; border-radius: 4px; margin-bottom: 1rem;"></div>
-                <div class="placeholder-text" style="height: 20px; background: #222; border-radius: 4px; width: 50%;">
-                </div>
-            </div>
+            <p style="text-align: center; width: 100%;">Loading details...</p>
         </div>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html">
+                        <h3>V'Kreates</h3>
+                    </a>
+                    <p>Premium digital editing & creative services.</p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://instagram.com/v.kreates" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/919440090529" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 V'Kreates. All rights reserved.</p>
             </div>
@@ -235,128 +233,194 @@
     </footer>
 
     <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Get product ID from URL
-            const params = new URLSearchParams(window.location.search);
-            const workId = params.get('id');
-            const container = document.getElementById('details-content');
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            const container = document.getElementById('product-content');
 
-            // Function to render product details
-            function renderProductDetails() {
-                if (!window.siteData || !window.siteData.demoWorks) {
-                    container.innerHTML = `
-                        <div style="grid-column: 1/-1; text-align: center;">
-                            <h2>Error loading data.</h2>
-                            <a href="index.html" class="btn btn-primary" style="margin-top: 1rem;">Go Home</a>
-                        </div>
-                    `;
-                    return;
-                }
-
-                const product = window.siteData.demoWorks.find(p => p.id === workId);
-
-                if (!product) {
-                    container.innerHTML = `
-                        <div style="grid-column: 1/-1; text-align: center;">
-                            <h2>Product not found</h2>
-                            <a href="index.html" class="btn btn-primary" style="margin-top: 1rem;">Go Home</a>
-                        </div>
-                    `;
-                    return;
-                }
-
-                // Update Page Title
-                document.title = `${product.title} | V'Kreates`;
-
-                // Prepare images array
-                const images = product.images && product.images.length > 0 ? product.images : [
-                    product.image || product.thumbnail || 'placeholder'
-                ];
-
-                // Generate Slides HTML
-                const slidesHtml = images.map((img, index) => `
-                    <div class="slide">
-                        ${img && img !== 'placeholder'
-                        ? `<img src="${img}" alt="${product.title} view ${index + 1}">`
-                        : '<div style="color: #666;">No Image</div>'}
-                    </div>
-                `).join('');
-
-                // Generate Indicators HTML
-                // Only show if more than 1 image
-                const indicatorsHtml = images.length > 1 ? `
-                    <div class="slider-indicators">
-                        ${images.map((_, index) => `<div class="indicator ${index === 0 ? 'active' : ''}" data-index="${index}"></div>`).join('')}
-                    </div>
-                ` : '';
-
-                // Generate Preview Button HTML
-                const previewBtn = product.previewLink ? `
-                    <a href="${product.previewLink}" target="_blank" class="btn-preview-full">
-                        <i class="fas fa-eye"></i> See HD Preview
-                    </a>
-                ` : '';
-
-                // Render Full Content
-                container.innerHTML = `
-                    <div class="gallery-container">
-                        <div class="slider-wrapper" id="image-slider">
-                            ${slidesHtml}
-                        </div>
-                        ${indicatorsHtml}
-                    </div>
-                    
-                    <div class="details-info">
-                        <span style="color: var(--accent-color); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">${product.category || 'Service'}</span>
-                        <h1 class="details-title">${product.title}</h1>
-                        <p class="details-price">${product.price}</p>
-                        <div class="details-desc">
-                            <p>${product.longDesc || product.shortDesc}</p>
-                        </div>
-                        
-                        <div class="action-buttons">
-                            <a href="https://wa.me/919440090529?text=Hi, I am interested in *${encodeURIComponent(product.title)}*. Please provide more details." target="_blank" class="btn-whatsapp-full">
-                                <i class="fab fa-whatsapp"></i> Get It on WhatsApp
-                            </a>
-                            ${previewBtn}
-                        </div>
-                    </div>
-                `;
-
-                // Add Scroll Listener for Indicators
-                if (images.length > 1) {
-                    const slider = document.getElementById('image-slider');
-                    const indicators = document.querySelectorAll('.indicator');
-
-                    if (slider && indicators.length > 0) {
-                        slider.addEventListener('scroll', () => {
-                            const scrollPosition = slider.scrollLeft;
-                            const width = slider.offsetWidth;
-                            const activeIndex = Math.round(scrollPosition / width);
-
-                            indicators.forEach((dot, index) => {
-                                if (index === activeIndex) {
-                                    dot.classList.add('active');
-                                } else {
-                                    dot.classList.remove('active');
-                                }
-                            });
-                        });
-                    }
-                }
+            if (!productId || !window.siteData) {
+                container.innerHTML = '<p>Product not found.</p>';
+                return;
             }
 
-            // Load data and render
-            if (window.siteData) {
-                renderProductDetails();
-            } else {
-                const checkData = setInterval(() => {
-                    if (window.siteData) {
-                        clearInterval(checkData);
-                        renderProductDetails();
+            const services = window.siteData.demoWorks || [];
+            const digital = window.siteData.digitalProducts || [];
+
+            // Try finding in both
+            let product = services.find(p => p.id === productId);
+            let isDigital = false;
+
+            if (!product) {
+                product = digital.find(p => p.id === productId);
+                if (product) isDigital = true;
+            }
+
+            if (!product) {
+                container.innerHTML = '<p>Product not found.</p>';
+                return;
+            }
+
+            // Update Page Title
+            document.title = `${product.title} | V'Kreates`;
+
+            // Prepare images array
+            const images = product.images && product.images.length > 0 ? product.images : [
+                product.image || product.thumbnail || 'placeholder'
+            ];
+
+            // Helper to check for video
+            const isVideo = (url) => url.toLowerCase().match(/\.(mp4|webm|mov)$/i);
+            const isGif = (url) => url.toLowerCase().endsWith('.gif');
+
+            // Generated Slides
+            const slidesHtml = images.map((img, index) => {
+                if (!img || img === 'placeholder') {
+                    return `<div class="slide"><div style="color: #666;">No Media</div></div>`;
+                }
+
+                if (isVideo(img)) {
+                    // Video: seamless loop, click to toggle
+                    return `
+                        <div class="slide">
+                            <video src="${img}" autoplay loop muteds playsinline 
+                                onclick="toggleVideo(this)" 
+                                ondblclick="toggleFullscreen(this)"
+                                style="width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer;"
+                                title="Click to Play/Pause, Double Click for Fullscreen">
+                            </video>
+                        </div>
+                    `;
+                }
+
+                // Image or GIF
+                return `
+                    <div class="slide">
+                        <img src="${img}" alt="${product.title} view ${index + 1}">
+                    </div>
+                `;
+            }).join('');
+
+            // Video Toggle Helper
+            window.toggleVideo = function (video) {
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            };
+
+            window.toggleFullscreen = function (video) {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) { /* Safari */
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) { /* IE11 */
+                    video.msRequestFullscreen();
+                }
+            };
+
+            // Generated Indicators
+            const indicatorsHtml = images.length > 1 ? `
+                <div class="slider-indicators">
+                    ${images.map((_, index) => `<div class="indicator ${index === 0 ? 'active' : ''}" data-index="${index}"></div>`).join('')}
+                </div>
+            ` : '';
+
+            // Render Content
+            container.innerHTML = `
+                <div class="gallery-container">
+                    <button class="btn-share" id="share-btn" title="Share Product">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <div class="slider-wrapper" id="image-slider">
+                        ${slidesHtml}
+                    </div>
+                    ${indicatorsHtml}
+                </div>
+                
+                <div class="details-info">
+                    <span style="color: var(--accent-color); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">${product.category || 'Service'}</span>
+                    <h1 class="details-title">${product.title}</h1>
+                    <p class="details-price">${product.price}</p>
+                    <div class="details-desc">
+                        <p>${product.longDesc || product.shortDesc}</p>
+                    </div>
+                    
+                    ${isDigital
+                    ? `<a href="${product.buyLink || '#'}" target="_blank" class="btn btn-primary" style="display: block; width: 100%; text-align: center; padding: 1rem; border-radius: 8px; font-weight: 600; text-decoration: none;">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                           </a>`
+                    : `<a href="https://wa.me/919440090529?text=Hi, I am interested in *${encodeURIComponent(product.title)}*. Please provide more details." target="_blank" class="btn btn-whatsapp-full">
+                            <i class="fab fa-whatsapp"></i> Get It on WhatsApp
+                           </a>`
+                }
+                    ${product.previewLink ? `
+                        <a href="${product.previewLink}" target="_blank" class="btn btn-primary-outline" style="margin-top: 1rem;">
+                            <i class="fas fa-external-link-alt"></i> See HD Preview
+                        </a>
+                    ` : ''}
+                    
+                    <a href="javascript:history.back()" style="display: block; text-align: center; margin-top: 1.5rem; color: var(--text-secondary); text-decoration: none;">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </a>
+                </div>
+            `;
+
+            // Share functionality
+            const shareBtn = document.getElementById('share-btn');
+            if (shareBtn) {
+                shareBtn.addEventListener('click', async () => {
+                    const shareData = {
+                        title: product.title,
+                        text: `Check out ${product.title} on V'Kreates!`,
+                        url: window.location.href
+                    };
+
+                    if (navigator.share) {
+                        try {
+                            await navigator.share(shareData);
+                        } catch (err) {
+                            console.log('Error sharing:', err);
+                        }
+                    } else {
+                        // Fallback
+                        navigator.clipboard.writeText(window.location.href);
+
+                        // Change icon temporarily to indicate copy
+                        const originalIcon = shareBtn.innerHTML;
+                        shareBtn.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(() => {
+                            shareBtn.innerHTML = originalIcon;
+                        }, 2000);
+
+                        alert('Link copied to clipboard!');
                     }
-                }, 100);
+                });
+            }
+
+            // Slider Functionality
+            if (images.length > 1) {
+                const slider = document.getElementById('image-slider');
+                const indicators = document.querySelectorAll('.indicator');
+
+                slider.addEventListener('scroll', () => {
+                    const scrollLeft = slider.scrollLeft;
+                    const width = slider.offsetWidth;
+                    const index = Math.round(scrollLeft / width);
+
+                    indicators.forEach(ind => ind.classList.remove('active'));
+                    if (indicators[index]) indicators[index].classList.add('active');
+                });
+
+                indicators.forEach(ind => {
+                    ind.addEventListener('click', () => {
+                        const index = parseInt(ind.getAttribute('data-index'));
+                        const width = slider.offsetWidth;
+                        slider.scrollTo({ left: width * index, behavior: 'smooth' });
+                    });
+                });
             }
         });
     </script>

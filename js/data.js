@@ -3,121 +3,67 @@ const demoWorks = [
     {
         "id": "birthday-wish-post",
         "title": "Birthday Wish Post",
-        "thumbnail": "images/demo-birthday-thumb.jpg",
-        "image": "images/demo-birthday-full.jpg",
+        "thumbnail": "images/birthdaypost01.jpg",
+        "image": "images/birthdaypost01.jpg",
         "images": [
-            "images/demo-birthday-full.jpg",
-            "https://via.placeholder.com/600x600?text=Birthday+Variant+1",
-            "https://via.placeholder.com/600x600?text=Birthday+Variant+2",
-            "https://via.placeholder.com/600x600?text=Birthday+Zoom+Details"
+            "images/birthdaypost01.jpg",
+            "images/birthdaypost01b.jpg"
         ],
         "shortDesc": "Beautifully designed birthday wish for social media.",
         "longDesc": "make your loved ones feel special with a custom designed birthday wish post. Perfect for Instagram, Facebook, and WhatsApp status. Includes photo retouching and custom text.",
-        "price": "₹299",
+        "price": "₹99",
         "category": "Graphic Design",
         "previewLink": "https://instagram.com/vkreates"
-    },
-    {
-        "id": "anniversary-wish-post",
-        "title": "Anniversary Wish Post",
-        "thumbnail": "images/demo-anniversary-thumb.jpg",
-        "image": "images/demo-anniversary-full.jpg",
-        "images": [
-            "images/demo-anniversary-full.jpg",
-            "https://via.placeholder.com/600x600?text=Anniversary+Style+1",
-            "https://via.placeholder.com/600x600?text=Anniversary+Style+2"
-        ],
-        "shortDesc": "Celebrate your milestone with a stunning anniversary post.",
-        "longDesc": "A romantic and elegant design to celebrate your anniversary. customized with your couple photos and a heartfelt message.",
-        "price": "₹399",
-        "category": "Graphic Design",
-        "previewLink": "https://instagram.com/vkreates"
-    },
-    {
-        "id": "wedding-invitation-video",
-        "title": "Wedding Invitation Video",
-        "thumbnail": "images/demo-wedding-thumb.jpg",
-        "image": "images/demo-wedding-full.jpg",
-        "images": [
-            "images/demo-wedding-full.jpg",
-            "https://via.placeholder.com/600x600?text=Video+Scene+1",
-            "https://via.placeholder.com/600x600?text=Video+Scene+2",
-            "https://via.placeholder.com/600x600?text=Video+Scene+3"
-        ],
-        "shortDesc": "Animated wedding invitation to share on WhatsApp.",
-        "longDesc": "A premium animated video invitation for your big day. Includes music, animations, and details of your wedding events.",
-        "price": "₹999",
-        "category": "Video Editing",
-        "previewLink": "https://drive.google.com/"
     },
     {
         "id": "business-poster",
-        "title": "Business Promo Poster",
-        "thumbnail": "images/demo-business-thumb.jpg",
-        "image": "images/demo-business-full.jpg",
+        "title": "Top 10 Creator Graphic elements",
+        "thumbnail": "images/upload.webm",
+        "image": "images/ge1.webm",
         "images": [
-            "images/demo-business-full.jpg",
-            "https://via.placeholder.com/600x600?text=Poster+Variant+Blue",
-            "https://via.placeholder.com/600x600?text=Poster+Variant+Red"
+            "images/ge1.webm",
+            "images/g2.webm",
+            "images/ge3.webm"
         ],
-        "shortDesc": "Professional poster for your business promotion.",
-        "longDesc": "High-quality poster design for your marketing campaigns. Great for social media ads and print.",
-        "price": "₹499",
+        "shortDesc": "Top 10 Creator Graphic elements which are helpful to Creators",
+        "longDesc": "High-quality graphic elements for your videos. Great for social media videos.",
+        "price": "₹79",
         "category": "Graphic Design",
         "previewLink": "https://instagram.com/vkreates"
     },
     {
         "id": "photo-retouching",
-        "title": "Professional Photo Retouching",
-        "thumbnail": "images/demo-retouch-thumb.jpg",
-        "image": "images/demo-retouch-full.jpg",
+        "title": "Instagram lowerthird",
+        "thumbnail": "images/graphic01.jpg",
+        "image": "",
+        "images": [],
+        "shortDesc": "Perfect Lowerthird for your instagram page.",
+        "longDesc": "Professional Lowerthids for your instagram profiles.",
+        "price": "₹49",
+        "category": "Graphic Design",
+        "previewLink": "https://drive.google.com/"
+    }
+];
+
+const digitalProducts = [
+    {
+        "id": "lr-preset-moody",
+        "title": "200+ Excel Templates",
+        "thumbnail": "images/dg01.png",
+        "image": "images/dg01.png",
         "images": [
-            "images/demo-retouch-full.jpg",
-            "https://via.placeholder.com/600x600?text=Before+Editing",
-            "https://via.placeholder.com/600x600?text=After+Editing"
+            "images/dg01.png"
         ],
-        "shortDesc": "High-end skin retouching and color correction.",
-        "longDesc": "Professional photo retouching services including skin smoothing, blemish removal, color grading, and lighting enhancements. Perfect for portraits and fashion shoots.",
+        "shortDesc": "",
+        "longDesc": "Boost your productivity and stay organized with this 200+ Excel Templates Mega Bundle, designed for business owners, freelancers, students, accountants, startups, and personal use.\nThis powerful collection helps you save time, track everything, and make smarter decisions—without complex software.",
         "price": "₹199",
-        "category": "Image Editing",
-        "previewLink": "https://drive.google.com/"
-    },
-    {
-        "id": "background-removal",
-        "title": "Background Removal",
-        "thumbnail": "images/demo-bg-remove-thumb.jpg",
-        "image": "images/demo-bg-remove-full.jpg",
-        "images": [
-            "images/demo-bg-remove-full.jpg",
-            "https://via.placeholder.com/600x600?text=With+Background",
-            "https://via.placeholder.com/600x600?text=Transparent+BG"
-        ],
-        "shortDesc": "Clean and precise background removal for products.",
-        "longDesc": "Expert background removal service. We deliver transparent backgrounds or replace them with a setting of your choice. Ideal for e-commerce products.",
-        "price": "₹99",
-        "category": "Image Editing",
-        "previewLink": "https://drive.google.com/"
-    },
-    {
-        "id": "reels-editing",
-        "title": "Instagram Reels Editing",
-        "thumbnail": "images/demo-reels-thumb.jpg",
-        "image": "images/demo-reels-full.jpg",
-        "images": [
-            "images/demo-reels-full.jpg",
-            "https://via.placeholder.com/600x600?text=Reel+Frame+1",
-            "https://via.placeholder.com/600x600?text=Reel+Frame+2",
-            "https://via.placeholder.com/600x600?text=Reel+Frame+3"
-        ],
-        "shortDesc": "Fast-paced, engaging editing for Instagram Reels.",
-        "longDesc": "Boost your engagement with professionally edited Reels. We add captions, transitions, effects, and trending music to make your content go viral.",
-        "price": "₹499",
-        "category": "Video Editing",
-        "previewLink": "https://instagram.com/vkreates"
+        "category": "Presets",
+        "buyLink": "https://razorpay.me/@saimeenugu",
+        "previewLink": ""
     }
 ];
 
 // Verify if we are in the browser context to avoid errors in node environments during testing
 if (typeof window !== 'undefined') {
-    window.siteData = { demoWorks };
+    window.siteData = { demoWorks, digitalProducts };
 }

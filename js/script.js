@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, observerOptions);
 
     // Elements to animate
-    const animatedElements = document.querySelectorAll('.card, .section-title, .hero-content > *, .portfolio-item');
+    const animatedElements = document.querySelectorAll('.card, .section-title, .hero-content > *, .portfolio-item, .service-card, .work-item, .feature-item, .cta-box, .highlight-content');
     animatedElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
@@ -79,32 +79,53 @@ document.addEventListener('DOMContentLoaded', () => {
         const homeContainer = document.getElementById('editing-designing-container');
         // Check for All Services Container
         const allServicesContainer = document.getElementById('all-services-container');
+        // Check for Shop Container
+        const shopContainer = document.getElementById('shop-container');
 
-        if ((!homeContainer && !allServicesContainer) || !window.siteData || !window.siteData.demoWorks) return;
+        if ((!homeContainer && !allServicesContainer && !shopContainer) || !window.siteData) return;
 
         const works = window.siteData.demoWorks;
+        const products = window.siteData.digitalProducts || [];
+
+        // Helper to check for video
+        const isVideo = (url) => url && url.toLowerCase().match(/\.(mp4|webm|mov)$/i);
 
         // Card Template Generator
-        const generateCard = (work) => `
+        const generateCard = (work, isDigital = false) => {
+            let mediaHtml;
+
+            // Check Thumbnail or Fallback Image
+            const mediaUrl = work.thumbnail && work.thumbnail !== 'placeholder' ? work.thumbnail : null;
+
+            if (mediaUrl && isVideo(mediaUrl)) {
+                mediaHtml = `<video src="${mediaUrl}" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>`;
+            } else {
+                mediaHtml = mediaUrl ? `<img src="${mediaUrl}" alt="${work.title}">` : 'Service Image';
+            }
+
+            return `
             <div class="card product-card">
                 <div class="product-img placeholder">
-                    ${work.thumbnail && work.thumbnail !== 'placeholder' ? `<img src="${work.thumbnail}" alt="${work.title}">` : 'Service Image'}
+                    ${mediaHtml}
                 </div>
                 <div class="product-details">
-                    <span style="font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;">${work.category || 'Creative'}</span>
                     <h3 class="product-title" style="margin-top: 0.5rem;">${work.title}</h3>
                     <p class="card-desc" style="margin-bottom: 0.5rem;">${work.shortDesc}</p>
                     <p class="product-price">${work.price}</p>
-                    <a href="product-details.html?id=${work.id}" class="btn btn-sm btn-primary">Get Details</a>
+                    ${isDigital
+                    ? `<a href="product-details.html?id=${work.id}" class="btn btn-sm btn-primary">View Details</a>`
+                    : `<a href="product-details.html?id=${work.id}" class="btn btn-sm btn-primary">Get Details</a>`
+                }
                 </div>
             </div>
-        `;
+            `;
+        };
 
         // Render for Home (Featured - Limit 3 + Explore Card)
         if (homeContainer) {
             // Take first 3 items
             const featuredWorks = works.slice(0, 3);
-            const productCards = featuredWorks.map(generateCard).join('');
+            const productCards = featuredWorks.map(p => generateCard(p)).join('');
 
             // Explore More Card
             const exploreCard = `
@@ -123,16 +144,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? works
                 : works.filter(work => work.category === category);
 
-            allServicesContainer.innerHTML = filteredWorks.map(generateCard).join('');
-
-            // Re-run animations for new elements on filters
-            const newElements = allServicesContainer.querySelectorAll('.card');
-            newElements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                observer.observe(el);
-            });
+            allServicesContainer.innerHTML = filteredWorks.map(p => generateCard(p)).join('');
+            animateNewElements(allServicesContainer);
         }
+
+        // Render for Shop Page
+        if (shopContainer) {
+            const filteredProducts = category === 'all'
+                ? products
+                : products.filter(p => p.category === category);
+
+            shopContainer.innerHTML = filteredProducts.map(p => generateCard(p, true)).join('');
+            animateNewElements(shopContainer);
+        }
+    };
+
+    // Helper to animate new elements
+    const animateNewElements = (container) => {
+        const newElements = container.querySelectorAll('.card');
+        newElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            observer.observe(el);
+        });
     };
 
     // Filter Buttons Logic (Only runs if filters exist)
