@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Digital Products | V'Kreates Admin</title>
+    <!-- Auth Check -->
+    <script>
+        if (!sessionStorage.getItem('isAdmin')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background-color: #050505;
+            color: #fff;
+            padding-top: 80px;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface-color);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .product-table th,
+        .product-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .product-thumbnail {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .btn-edit {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            margin-right: 0.5rem;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: #111;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #aaa;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="header">
+        <div class="container header-container">
+            <a href="admin.html" class="logo">V'Kreates <span>Admin</span></a>
+            <div>
+                <a href="admin.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>Manage Digital Products</h1>
+            <div style="display: flex; gap: 1rem;">
+                <button onclick="downloadDataJS()" class="btn btn-primary" style="background-color: #2ecc71;">
+                    <i class="fas fa-download"></i> Save Changes
+                </button>
+                <button onclick="openModal()" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Product
+                </button>
+            </div>
+        </div>
+
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="product-list-body"></tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()"
+                style="position:absolute; right:1.5rem; top:1rem; cursor:pointer; font-size:1.5rem;">&times;</span>
+            <h2 id="modalTitle" style="margin-bottom: 1.5rem;">Add Product</h2>
+            <form id="productForm">
+                <input type="hidden" id="productId">
+                <div class="form-group"><label>Title</label><input type="text" id="title" required></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Category</label>
+                        <select id="category">
+                            <option value="Presets">Presets</option>
+                            <option value="Templates">Templates</option>
+                            <option value="Courses">Courses</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Price</label><input type="text" id="price" required></div>
+                </div>
+                <!-- Details -->
+                <div class="form-group"><label>Short Desc</label><textarea id="shortDesc" rows="2"></textarea></div>
+                <div class="form-group"><label>Long Desc</label><textarea id="longDesc" rows="4"></textarea></div>
+                <div class="form-group"><label>Payment Link (Razorpay/Stripe)</label><input type="text" id="buyLink"
+                        placeholder="https://razorpay.me/..."></div>
+                <!-- Images -->
+                <div class="form-group"><label>Thumbnail URL</label><input type="text" id="thumbnail"></div>
+                <div class="form-group"><label>Full Image URL</label><input type="text" id="image"></div>
+                <div class="form-group"><label>Additional Images</label><input type="text" id="additionalImages"></div>
+                <div class="form-group"><label>Preview Link</label><input type="text" id="previewLink"></div>
+
+                <button type="submit" class="btn btn-primary" style="width:100%">Save Product</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Mode Setting -->
+    <script>window.adminMode = 'digital';</script>
+    <script src="js/data.js?v=4"></script>
+    <script src="js/admin.js?v=4"></script>
+</body>
+
+</html>

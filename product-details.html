@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | V'Kreates</title>
+    <meta name="description" content="Product Details">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .product-details-container {
+            padding-top: 120px;
+            padding-bottom: 5rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .product-details-container {
+                grid-template-columns: 1fr 1fr;
+                align-items: start;
+            }
+        }
+
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            background: var(--surface-color);
+            aspect-ratio: 1/1;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            width: 100%;
+            height: 100%;
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .slider-wrapper::-webkit-scrollbar {
+            display: none;
+            /* Safari and Chrome */
+        }
+
+        .slide {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            scroll-snap-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* or cover depending on preference */
+        }
+
+        .slider-indicators {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .indicator.active {
+            background: var(--accent-color);
+            width: 20px;
+            border-radius: 10px;
+        }
+
+        .details-info h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .details-price {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .details-desc {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .btn-whatsapp-full {
+            background-color: #25D366;
+            color: white;
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-whatsapp-full:hover {
+            background-color: #20bd5a;
+        }
+
+        .btn-primary-outline {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            background: transparent;
+        }
+
+        .btn-primary-outline:hover {
+            background: rgba(108, 92, 231, 0.1);
+        }
+
+        .btn-share {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            color: #333;
+            transition: 0.3s transform, 0.3s background;
+            font-size: 1.2rem;
+        }
+
+        .btn-share:hover {
+            transform: scale(1.1);
+            background: #fff;
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">V'Kre<span>ates</span>.</a>
+
+
+        </div>
+    </header>
+
+    <main>
+        <div class="container product-details-container" id="product-content">
+            <!-- Content loaded via JS -->
+            <p style="text-align: center; width: 100%;">Loading details...</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html">
+                        <h3>V'Kreates</h3>
+                    </a>
+                    <p>Premium digital editing & creative services.</p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/vkreates.in" target="_blank" class="social-instagram"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-youtube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/919440090529" target="_blank" class="social-whatsapp"><i
+                            class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 V'Kreates. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            const container = document.getElementById('product-content');
+
+            if (!productId || !window.siteData) {
+                container.innerHTML = '<p>Product not found.</p>';
+                return;
+            }
+
+            const services = window.siteData.demoWorks || [];
+            const digital = window.siteData.digitalProducts || [];
+
+            // Try finding in both
+            let product = services.find(p => p.id === productId);
+            let isDigital = false;
+
+            if (!product) {
+                product = digital.find(p => p.id === productId);
+                if (product) isDigital = true;
+            }
+
+            if (!product) {
+                container.innerHTML = '<p>Product not found.</p>';
+                return;
+            }
+
+            // Update Page Title
+            document.title = `${product.title} | V'Kreates`;
+
+            // Prepare images array
+            const images = product.images && product.images.length > 0 ? product.images : [
+                product.image || product.thumbnail || 'placeholder'
+            ];
+
+            // Helper to check for video
+            const isVideo = (url) => url.toLowerCase().match(/\.(mp4|webm|mov)$/i);
+            const isGif = (url) => url.toLowerCase().endsWith('.gif');
+
+            // Generated Slides
+            const slidesHtml = images.map((img, index) => {
+                if (!img || img === 'placeholder') {
+                    return `<div class="slide"><div style="color: #666;">No Media</div></div>`;
+                }
+
+                if (isVideo(img)) {
+                    // Video: seamless loop, click to toggle
+                    return `
+                        <div class="slide">
+                            <video src="${img}" autoplay loop muteds playsinline 
+                                onclick="toggleVideo(this)" 
+                                ondblclick="toggleFullscreen(this)"
+                                style="width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer;"
+                                title="Click to Play/Pause, Double Click for Fullscreen">
+                            </video>
+                        </div>
+                    `;
+                }
+
+                // Image or GIF
+                return `
+                    <div class="slide">
+                        <img src="${img}" alt="${product.title} view ${index + 1}">
+                    </div>
+                `;
+            }).join('');
+
+            // Video Toggle Helper
+            window.toggleVideo = function (video) {
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            };
+
+            window.toggleFullscreen = function (video) {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) { /* Safari */
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) { /* IE11 */
+                    video.msRequestFullscreen();
+                }
+            };
+
+            // Generated Indicators
+            const indicatorsHtml = images.length > 1 ? `
+                <div class="slider-indicators">
+                    ${images.map((_, index) => `<div class="indicator ${index === 0 ? 'active' : ''}" data-index="${index}"></div>`).join('')}
+                </div>
+            ` : '';
+
+            // Render Content
+            container.innerHTML = `
+                <div class="gallery-container">
+                    <button class="btn-share" id="share-btn" title="Share Product">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <div class="slider-wrapper" id="image-slider">
+                        ${slidesHtml}
+                    </div>
+                    ${indicatorsHtml}
+                </div>
+                
+                <div class="details-info">
+                    <span style="color: var(--accent-color); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">${product.category || 'Service'}</span>
+                    <h1 class="details-title">${product.title}</h1>
+                    ${isDigital ? `<p class="details-price">${product.price}</p>` : ''}
+                    <div class="details-desc">
+                        <p>${product.longDesc || product.shortDesc}</p>
+                    </div>
+                    
+                    ${isDigital
+                    ? `<a href="${product.buyLink || '#'}" target="_blank" class="btn btn-primary" style="display: block; width: 100%; text-align: center; padding: 1rem; border-radius: 8px; font-weight: 600; text-decoration: none;">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                           </a>`
+                    : `<a href="https://wa.me/919440090529?text=Hi, I am interested in *${encodeURIComponent(product.title)}*. Please provide more details." target="_blank" class="btn btn-whatsapp-full">
+                            <i class="fab fa-whatsapp"></i> Get It on WhatsApp
+                           </a>`
+                }
+                    ${product.previewLink ? `
+                        <a href="${product.previewLink}" target="_blank" class="btn btn-primary-outline" style="margin-top: 1rem;">
+                            <i class="fas fa-external-link-alt"></i> See HD Preview
+                        </a>
+                    ` : ''}
+                    
+                    <a href="javascript:history.back()" style="display: block; text-align: center; margin-top: 1.5rem; color: var(--text-secondary); text-decoration: none;">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </a>
+                </div>
+            `;
+
+            // Share functionality
+            const shareBtn = document.getElementById('share-btn');
+            if (shareBtn) {
+                shareBtn.addEventListener('click', async () => {
+                    const shareData = {
+                        title: product.title,
+                        text: `Check out ${product.title} on V'Kreates!`,
+                        url: window.location.href
+                    };
+
+                    if (navigator.share) {
+                        try {
+                            await navigator.share(shareData);
+                        } catch (err) {
+                            console.log('Error sharing:', err);
+                        }
+                    } else {
+                        // Fallback
+                        navigator.clipboard.writeText(window.location.href);
+
+                        // Change icon temporarily to indicate copy
+                        const originalIcon = shareBtn.innerHTML;
+                        shareBtn.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(() => {
+                            shareBtn.innerHTML = originalIcon;
+                        }, 2000);
+
+                        alert('Link copied to clipboard!');
+                    }
+                });
+            }
+
+            // Slider Functionality
+            if (images.length > 1) {
+                const slider = document.getElementById('image-slider');
+                const indicators = document.querySelectorAll('.indicator');
+
+                slider.addEventListener('scroll', () => {
+                    const scrollLeft = slider.scrollLeft;
+                    const width = slider.offsetWidth;
+                    const index = Math.round(scrollLeft / width);
+
+                    indicators.forEach(ind => ind.classList.remove('active'));
+                    if (indicators[index]) indicators[index].classList.add('active');
+                });
+
+                indicators.forEach(ind => {
+                    ind.addEventListener('click', () => {
+                        const index = parseInt(ind.getAttribute('data-index'));
+                        const width = slider.offsetWidth;
+                        slider.scrollTo({ left: width * index, behavior: 'smooth' });
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
